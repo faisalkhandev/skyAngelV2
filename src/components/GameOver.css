@@ -1,0 +1,157 @@
+/* GameOver.css */
+
+.game-over-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 500px;
+}
+
+.game-over-screen h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #ff4c4c;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.game-over-screen p {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.score-submission {
+    margin: 20px 0;
+}
+
+.name-input {
+    padding: 10px;
+    font-size: 16px;
+    width: 80%;
+    border: 2px solid #0072ff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.name-input:focus {
+    border-color: #005bb5;
+    outline: none;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #0072ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:disabled {
+    background-color: #a0c4ff;
+    cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: #005bb5;
+}
+
+.error-message {
+    color: #ff4c4c;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.ranking {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.ranking h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #0072ff;
+}
+
+.ranking ol {
+    padding-left: 20px;
+}
+
+.ranking li {
+    margin-bottom: 5px;
+}
+
+.restart-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #ff6b6b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.restart-button:hover {
+    background-color: #ff4c4c;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 400px;
+}
+
+.modal-content h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #28a745;
+}
+
+.modal-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.close-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+    background-color: #218838;
+}
