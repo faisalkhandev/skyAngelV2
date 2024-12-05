@@ -1,0 +1,18 @@
+/* Add this to your CSS file (e.g., App.css) */
+
+/* Style for the game container */
+.game-canvas-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw; /* Full width of the viewport */
+  background-color: #f0f0f0; /* Optional: background color */
+  position: relative; /* Allow absolute positioning for the canvas */
+}
+
+/* Style for the canvas itself */
+canvas {
+  border: 2px solid #000; /* Optional: border for canvas */
+  background-color: #87ceeb; /* Optional: sky color */
+}
