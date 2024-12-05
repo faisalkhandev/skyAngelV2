@@ -73,8 +73,10 @@
 }
 
 .ranking {
-    margin: 20px 0;
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .ranking h3 {

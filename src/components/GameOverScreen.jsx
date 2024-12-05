@@ -39,6 +39,7 @@ const GameOverScreen = ({ data, onRestart }) => {
                 return response.json();
             })
             .then(() => {
+
                 return fetch(API_URL);
             })
             .then((response) => {
@@ -48,6 +49,7 @@ const GameOverScreen = ({ data, onRestart }) => {
                 return response.json();
             })
             .then((rankingsData) => {
+                console.log("rankingData::", rankingsData);
                 const sortedRankings = rankingsData.sort((a, b) => {
                     if (b.time !== a.time) {
                         return b.time - a.time; // Higher time first
@@ -71,8 +73,8 @@ const GameOverScreen = ({ data, onRestart }) => {
     return (
         <div className="game-over-screen">
             <h2>Game Over</h2>
-            <p>Time Survived: {data.time} seconds</p>
-            <p>Stars Collected: {data.stars}</p>
+            <p>Time Survived: {data?.time} seconds</p>
+            <p>Stars Collected: {data?.stars}</p>
             <div className="score-submission">
                 <input
                     type="text"

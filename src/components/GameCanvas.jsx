@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-/* GameCanvas.jsx */
 import { useEffect, useRef, useState } from 'react';
 import {
     initializeGame,
@@ -226,18 +225,15 @@ const GameCanvas = ({ onGameOver }) => {
         <div className="game-canvas-container">
             {!started && (
                 <div className="start-screen">
-                    <h1>Airplane Adventure</h1>
+                    <h1>Sky Angel 🛩 ✈</h1>
+                    <h3>Airplane Adventure</h3>
                     <button className="start-button" onClick={startGame}>
                         Start Game
                     </button>
                 </div>
             )}
             <canvas ref={canvasRef} className="game-canvas" width="1024" height="768" />
-            {started && (
-                <button className="pause-button" onClick={togglePause}>
-                    {paused ? 'Resume' : 'Pause'}
-                </button>
-            )}
+
         </div>
     );
 };
