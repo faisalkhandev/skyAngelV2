@@ -6,8 +6,8 @@ export const initializeGame = (width, height, images) => {
         aircraft: {
             x: width / 2 - 25, // Center the aircraft horizontally
             y: height / 2 - 25, // Center the aircraft vertically
-            width: 50,
-            height: 50,
+            width: 90,
+            height: 90,
             speed: 5,
             image: images.aircraft,
         },
