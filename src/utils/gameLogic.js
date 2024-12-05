@@ -1,162 +1,161 @@
+/* gameLogic.js */
+
 // Initialize the game state
 export const initializeGame = (width, height, images) => {
     return {
         aircraft: {
-            x: width / 2 - 50, // Center the aircraft initially
-            y: height / 2 - 50,
-            width: 100,
-            height: 100,
+            x: width / 2 - 25, // Center the aircraft horizontally
+            y: height / 2 - 25, // Center the aircraft vertically
+            width: 50,
+            height: 50,
             speed: 5,
             image: images.aircraft,
         },
-        birds: [],
-        parachutes: [],
-        stars: [],
-        clouds: [],
-        fuel: 10,
-        time: 0,
-        starsCollected: 0,
-        collision: false,
+        birds: [], // Array to hold bird objects
+        parachutes: [], // Array to hold parachute objects
+        stars: [], // Array to hold star objects
+        clouds: [], // Array to hold cloud objects
+        fuel: 10, // Initial fuel
+        time: 0, // Initial time
+        starsCollected: 0, // Initial star count
+        collision: false, // Collision flag
+        width,
+        height,
+        images,
     };
 };
 
-// Move aircraft left
-export const moveLeft = (game, setGame) => {
+// Aircraft movement functions
+export const moveLeft = (game) => {
     if (game.aircraft.x > 0) {
         game.aircraft.x -= game.aircraft.speed;
-        setGame({ ...game });
     }
 };
 
-// Move aircraft right
-export const moveRight = (game, setGame) => {
+export const moveRight = (game) => {
     if (game.aircraft.x + game.aircraft.width < game.width) {
         game.aircraft.x += game.aircraft.speed;
-        setGame({ ...game });
     }
 };
 
-// Move aircraft up
-export const moveUp = (game, setGame) => {
+export const moveUp = (game) => {
     if (game.aircraft.y > 0) {
         game.aircraft.y -= game.aircraft.speed;
-        setGame({ ...game });
     }
 };
 
-// Move aircraft down
-export const moveDown = (game, setGame) => {
+export const moveDown = (game) => {
     if (game.aircraft.y + game.aircraft.height < game.height) {
         game.aircraft.y += game.aircraft.speed;
-        setGame({ ...game });
     }
 };
 
-// Check if the aircraft collides with birds
+// Collision detection between aircraft and birds
 export const checkCollision = (game) => {
     const aircraft = game.aircraft;
 
-    // Check if any bird intersects the aircraft
-    for (let i = 0; i < game.birds.length; i++) {
-        const bird = game.birds[i];
+    for (let bird of game.birds) {
         if (
             aircraft.x < bird.x + bird.width &&
             aircraft.x + aircraft.width > bird.x &&
             aircraft.y < bird.y + bird.height &&
             aircraft.y + aircraft.height > bird.y
         ) {
-            game.collision = true;
-            break;
+            return true; // Collision detected
         }
     }
 
-    return game.collision;
+    return false; // No collision
 };
 
-// Generate birds (flying from right to left)
+// Generate a new bird flying from right to left
 export const generateBirds = (game) => {
     const birdWidth = 50;
     const birdHeight = 50;
-    const randomY = Math.random() * (game.height - birdHeight);
     const bird = {
-        x: game.width,
-        y: randomY,
+        x: game.width, // Start at the right edge
+        y: Math.random() * (game.height - birdHeight), // Random vertical position
         width: birdWidth,
         height: birdHeight,
-        speed: Math.random() * 2 + 2, // Random speed for the birds
+        speed: 2 + Math.random() * 2, // Random speed between 2-4
         image: game.images.bird,
     };
-
     game.birds.push(bird);
 };
 
-// Generate parachutes (falling from top to bottom)
+// Generate a new parachute falling from the top
 export const generateParachutes = (game) => {
-    const parachuteWidth = 50;
-    const parachuteHeight = 50;
-    const randomX = Math.random() * (game.width - parachuteWidth);
+    const parachuteWidth = 40;
+    const parachuteHeight = 40;
     const parachute = {
-        x: randomX,
-        y: 0, // Start from the top
+        x: Math.random() * (game.width - parachuteWidth), // Random horizontal position
+        y: 0, // Start at the top
         width: parachuteWidth,
         height: parachuteHeight,
-        speed: 2, // Speed of falling parachutes
+        speed: 2 + Math.random() * 2, // Random speed between 2-4
         image: game.images.parachute,
     };
-
     game.parachutes.push(parachute);
 };
 
-// Generate stars (falling from top to bottom)
+// Generate a new star falling from the top
 export const generateStars = (game) => {
     const starWidth = 30;
     const starHeight = 30;
-    const randomX = Math.random() * (game.width - starWidth);
     const star = {
-        x: randomX,
-        y: 0, // Start from the top
+        x: Math.random() * (game.width - starWidth), // Random horizontal position
+        y: 0, // Start at the top
         width: starWidth,
         height: starHeight,
-        speed: 1, // Speed of falling stars
+        speed: 1 + Math.random() * 2, // Random speed between 1-3
         image: game.images.star,
     };
-
     game.stars.push(star);
 };
 
-// Update game state (move objects, check collisions, etc.)
-export const updateGameState = (game, setGame) => {
-    // Move birds and check if they are off-screen
-    game.birds.forEach((bird, index) => {
+// Update the game state: move objects, handle collections
+export const updateGameState = (game) => {
+    // Move birds
+    game.birds = game.birds.filter((bird) => {
         bird.x -= bird.speed;
-        if (bird.x + bird.width < 0) {
-            game.birds.splice(index, 1);
-        }
+        return bird.x + bird.width > 0; // Keep birds that are still on screen
     });
 
-    // Move parachutes and check if they are off-screen
-    game.parachutes.forEach((parachute, index) => {
+    // Move parachutes and handle collection
+    game.parachutes = game.parachutes.filter((parachute) => {
         parachute.y += parachute.speed;
-        if (parachute.y > game.height) {
-            game.parachutes.splice(index, 1);
+
+        // Check collision with aircraft
+        if (
+            parachute.x < game.aircraft.x + game.aircraft.width &&
+            parachute.x + parachute.width > game.aircraft.x &&
+            parachute.y < game.aircraft.y + game.aircraft.height &&
+            parachute.y + parachute.height > game.aircraft.y
+        ) {
+            game.fuel += 10; // Increase fuel
+            return false; // Remove parachute from the game
         }
+
+        return parachute.y < game.height; // Keep parachute if still on screen
     });
 
-    // Move stars and check if they are off-screen
-    game.stars.forEach((star, index) => {
+    // Move stars and handle collection
+    game.stars = game.stars.filter((star) => {
         star.y += star.speed;
-        if (star.y > game.height) {
-            game.stars.splice(index, 1);
+
+        // Check collision with aircraft
+        if (
+            star.x < game.aircraft.x + game.aircraft.width &&
+            star.x + star.width > game.aircraft.x &&
+            star.y < game.aircraft.y + game.aircraft.height &&
+            star.y + star.height > game.aircraft.y
+        ) {
+            game.starsCollected += 1; // Increase stars count
+            return false; // Remove star from the game
         }
+
+        return star.y < game.height; // Keep star if still on screen
     });
 
-    // Check for collision
-    const collision = checkCollision(game);
-    if (collision) {
-        game.fuel = 0; // End the game if there is a collision
-        game.collision = true;
-    }
-
-    // Update game state
-    setGame({ ...game });
+    // Note: Clouds are handled in GameCanvas.jsx for movement and rendering
 };

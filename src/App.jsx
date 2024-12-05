@@ -1,37 +1,28 @@
-import { useState } from 'react';
-
-import './App.css';
-import StartScreen from './components/StartScreen';
+/* App.jsx */
+import React, { useState } from 'react';
 import GameCanvas from './components/GameCanvas';
 import GameOverScreen from './components/GameOverScreen';
+import StartScreen from './components/StartScreen'; // If you have a separate start screen component
+import './App.css';
 
 function App() {
-  const [gameStarted, setGameStarted] = useState(false);
-  const [gameOver, setGameOver] = useState(false);
-  const [gameData, setGameData] = useState(null);
-
-  const handleStartGame = () => {
-    setGameStarted(true);
-    setGameOver(false);
-  };
+  const [gameOverData, setGameOverData] = useState(null);
 
   const handleGameOver = (data) => {
-    setGameData(data);
-    setGameStarted(false);
-    setGameOver(true);
+    setGameOverData(data);
+  };
+
+  const handleRestart = () => {
+    setGameOverData(null);
   };
 
   return (
     <div className="App">
-      {!gameStarted && !gameOver && (
-        <StartScreen onStartGame={handleStartGame} />
-      )}
-
-      {gameStarted && !gameOver && (
+      {!gameOverData ? (
         <GameCanvas onGameOver={handleGameOver} />
+      ) : (
+        <GameOverScreen data={gameOverData} onRestart={handleRestart} />
       )}
-
-      {gameOver && <GameOverScreen data={gameData} />}
     </div>
   );
 }
