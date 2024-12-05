@@ -243,7 +243,8 @@ const GameCanvas = ({ onGameOver }) => {
         <div className="game-canvas-container">
             {!started && (
                 <div className="start-screen">
-                    <h1>Airplane Adventure</h1>
+                    <h1>Sky Angel</h1>
+                    <h3>Airplane Adventure</h3>
                     <button className="start-button" onClick={startGame}>
                         Start Game
                     </button>
