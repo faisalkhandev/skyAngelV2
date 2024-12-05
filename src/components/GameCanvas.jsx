@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from 'react';
 import {
     initializeGame,
@@ -117,7 +118,7 @@ const GameCanvas = ({ onGameOver }) => {
             clearInterval(fuelIntervalId.current);
         }
 
-        playSound(sounds.current.gameOver); // Play game over sound
+        playSound(sounds.current.gameOver);
         onGameOver({
             name: '',
             time: gameRef.current.time,
@@ -161,8 +162,8 @@ const GameCanvas = ({ onGameOver }) => {
                         ctx.drawImage(cloud.image, cloud.x, cloud.y, cloud.width, cloud.height);
                     }
                 });
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';  // Semi-transparent black background
-                ctx.fillRect(10, 10, 100, 130);  // Rectangle covering the UI section
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                ctx.fillRect(10, 10, 100, 130);
 
                 ctx.fillStyle = 'white';
                 ctx.font = '20px Arial';
@@ -185,7 +186,7 @@ const GameCanvas = ({ onGameOver }) => {
                 if (Math.random() < 0.01) generateStars(gameRef.current);
 
                 if (checkCollision(gameRef.current)) {
-                    playSound(sounds.current.collision);  // Play collision sound
+                    playSound(sounds.current.collision);
                     endGame();
                     return;
                 }
@@ -232,7 +233,7 @@ const GameCanvas = ({ onGameOver }) => {
             }
 
             setStarted(true);
-            playSound(sounds.current.start); // Play start sound
+            playSound(sounds.current.start);
             startGameLoop();
             startFuelTimer();
         }

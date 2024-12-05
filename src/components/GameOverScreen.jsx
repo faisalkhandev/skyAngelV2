@@ -23,7 +23,6 @@ const GameOverScreen = ({ data, onRestart }) => {
         if (!name || isSubmitting) return;
         setIsSubmitting(true);
 
-        // Prepare the score data
         const scoreData = {
             name: name.trim(),
             time: data.time,
@@ -56,9 +55,9 @@ const GameOverScreen = ({ data, onRestart }) => {
                 console.log("rankingData::", rankingsData);
                 const sortedRankings = rankingsData.sort((a, b) => {
                     if (b.time !== a.time) {
-                        return b.time - a.time; // Higher time first
+                        return b.time - a.time;
                     }
-                    return b.stars - a.stars; // If time equal, higher stars first
+                    return b.stars - a.stars;
                 });
                 setRanking(sortedRankings);
                 setName('');

@@ -11,14 +11,14 @@ export const initializeGame = (width, height, images) => {
             speed: 5,
             image: images.aircraft,
         },
-        birds: [], // Array to hold bird objects
-        parachutes: [], // Array to hold parachute objects
-        stars: [], // Array to hold star objects
-        clouds: [], // Array to hold cloud objects
-        fuel: 10, // Initial fuel
-        time: 0, // Initial time
-        starsCollected: 0, // Initial star count
-        collision: false, // Collision flag
+        birds: [],
+        parachutes: [],
+        stars: [],
+        clouds: [],
+        fuel: 10,
+        time: 0,
+        starsCollected: 0,
+        collision: false,
         width,
         height,
         images,
@@ -61,7 +61,7 @@ export const checkCollision = (game) => {
             aircraft.y < bird.y + bird.height &&
             aircraft.y + aircraft.height > bird.y
         ) {
-            return true; // Collision detected
+            return true;
         }
     }
 
@@ -132,14 +132,14 @@ export const updateGameState = (game) => {
             parachute.y < game.aircraft.y + game.aircraft.height &&
             parachute.y + parachute.height > game.aircraft.y
         ) {
-            game.fuel += 10; // Increase fuel
-            return false; // Remove parachute from the game
+            game.fuel += 10;
+            return false;
         }
 
-        return parachute.y < game.height; // Keep parachute if still on screen
+        return parachute.y < game.height;
     });
 
-    // Move stars and handle collection
+
     game.stars = game.stars.filter((star) => {
         star.y += star.speed;
 
@@ -154,8 +154,8 @@ export const updateGameState = (game) => {
             return false;
         }
 
-        return star.y < game.height; // Keep star if still on screen
+        return star.y < game.height;
     });
 
-    // Note: Clouds are handled in GameCanvas.jsx for movement and rendering
+    // NOTE:::: Clouds are handled in GameCanvas.jsx for movement and rendering
 };
