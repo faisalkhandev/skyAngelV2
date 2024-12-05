@@ -7,6 +7,7 @@ const GameOverScreen = ({ data, onRestart }) => {
     const [ranking, setRanking] = useState([]);
     const [showDialog, setShowDialog] = useState(false);
     const [error, setError] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // MockAPI endpoint
     const API_URL = 'https://6751d259d1983b9597b47df0.mockapi.io/api/v1/userData';
@@ -18,6 +19,9 @@ const GameOverScreen = ({ data, onRestart }) => {
         }
 
         setError('');
+
+        if (!name || isSubmitting) return;
+        setIsSubmitting(true);
 
         // Prepare the score data
         const scoreData = {
@@ -59,6 +63,7 @@ const GameOverScreen = ({ data, onRestart }) => {
                 setRanking(sortedRankings);
                 setName('');
                 setShowDialog(true);
+                setIsSubmitting(false);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -83,8 +88,8 @@ const GameOverScreen = ({ data, onRestart }) => {
                     onChange={(e) => setName(e.target.value)}
                     className="name-input"
                 />
-                <button onClick={handleSubmit} className="submit-button" disabled={!name.trim()}>
-                    Submit Score
+                <button onClick={handleSubmit} className="submit-button" disabled={!name.trim() || isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'Submit Score'}
                 </button>
             </div>
             {error && <p className="error-message">{error}</p>}
