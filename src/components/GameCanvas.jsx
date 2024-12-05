@@ -147,12 +147,14 @@ const GameCanvas = ({ onGameOver }) => {
                         ctx.drawImage(cloud.image, cloud.x, cloud.y, cloud.width, cloud.height);
                     }
                 });
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';  // Semi-transparent black background
+                ctx.fillRect(10, 10, 100, 130);  // Rectangle covering the UI section
 
                 ctx.fillStyle = 'white';
                 ctx.font = '20px Arial';
-                ctx.fillText(`Fuel: ${gameRef.current.fuel}`, 15, 50);
-                ctx.fillText(`Time: ${gameRef.current.time}`, 15, 80);
-                ctx.fillText(`Stars: ${gameRef.current.starsCollected}`, 15, 110);
+                ctx.fillText(`Fuel: ${gameRef.current.fuel}`, 15, 70);
+                ctx.fillText(`Time: ${gameRef.current.time}`, 15, 100);
+                ctx.fillText(`Stars: ${gameRef.current.starsCollected}`, 15, 130);
 
                 updateGameState(gameRef.current);
 

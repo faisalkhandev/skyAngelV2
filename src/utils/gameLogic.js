@@ -70,8 +70,8 @@ export const checkCollision = (game) => {
 
 // Generate a new bird flying from right to left
 export const generateBirds = (game) => {
-    const birdWidth = 50;
-    const birdHeight = 50;
+    const birdWidth = 35;
+    const birdHeight = 35;
     const bird = {
         x: game.width, // Start at the right edge
         y: Math.random() * (game.height - birdHeight), // Random vertical position
