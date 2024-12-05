@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from 'react';
 import {
     initializeGame,
@@ -32,6 +31,14 @@ const GameCanvas = ({ onGameOver }) => {
 
     const images = useRef({});
 
+    // Sound files
+    const sounds = useRef({
+        start: new Audio('/sounds/start.mp3'),
+        collision: new Audio('/sounds/collision.mp3'),
+        collectStar: new Audio('/sounds/collectStar.mp3'),
+        gameOver: new Audio('/sounds/gameOver.mp3'),
+    });
+
     const preloadImages = () => {
         const imagePromises = Object.keys(imageSources).map((key) => {
             const img = new Image();
@@ -56,6 +63,12 @@ const GameCanvas = ({ onGameOver }) => {
     useEffect(() => {
         preloadImages();
     }, []);
+
+    // Play sound
+    const playSound = (sound) => {
+        sound.currentTime = 0;  // Reset sound to start from beginning
+        sound.play();
+    };
 
     const handleKeyDown = (e) => {
         if (!started || paused || !gameRef.current) return;
@@ -103,6 +116,8 @@ const GameCanvas = ({ onGameOver }) => {
         if (fuelIntervalId.current) {
             clearInterval(fuelIntervalId.current);
         }
+
+        playSound(sounds.current.gameOver); // Play game over sound
         onGameOver({
             name: '',
             time: gameRef.current.time,
@@ -170,6 +185,7 @@ const GameCanvas = ({ onGameOver }) => {
                 if (Math.random() < 0.01) generateStars(gameRef.current);
 
                 if (checkCollision(gameRef.current)) {
+                    playSound(sounds.current.collision);  // Play collision sound
                     endGame();
                     return;
                 }
@@ -216,6 +232,7 @@ const GameCanvas = ({ onGameOver }) => {
             }
 
             setStarted(true);
+            playSound(sounds.current.start); // Play start sound
             startGameLoop();
             startFuelTimer();
         }
@@ -225,8 +242,7 @@ const GameCanvas = ({ onGameOver }) => {
         <div className="game-canvas-container">
             {!started && (
                 <div className="start-screen">
-                    <h1>Sky Angel 🛩 ✈</h1>
-                    <h3>Airplane Adventure</h3>
+                    <h1>Airplane Adventure</h1>
                     <button className="start-button" onClick={startGame}>
                         Start Game
                     </button>
