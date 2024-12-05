@@ -150,8 +150,8 @@ export const updateGameState = (game) => {
             star.y < game.aircraft.y + game.aircraft.height &&
             star.y + star.height > game.aircraft.y
         ) {
-            game.starsCollected += 1; // Increase stars count
-            return false; // Remove star from the game
+            game.starsCollected += 1;
+            return false;
         }
 
         return star.y < game.height; // Keep star if still on screen

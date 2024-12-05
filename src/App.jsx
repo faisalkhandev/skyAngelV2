@@ -1,8 +1,7 @@
 /* App.jsx */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import GameCanvas from './components/GameCanvas';
 import GameOverScreen from './components/GameOverScreen';
-import StartScreen from './components/StartScreen'; // If you have a separate start screen component
 import './App.css';
 
 function App() {

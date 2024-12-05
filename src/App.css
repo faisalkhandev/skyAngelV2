@@ -1,18 +1,101 @@
-/* Add this to your CSS file (e.g., App.css) */
+/* App.css */
 
-/* Style for the game container */
-.game-canvas-container {
+/* Apply global styles to remove scrollbars */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Remove scrollbars */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full height of the viewport */
-  width: 100vw; /* Full width of the viewport */
-  background-color: #f0f0f0; /* Optional: background color */
-  position: relative; /* Allow absolute positioning for the canvas */
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Style for the canvas itself */
-canvas {
-  border: 2px solid #000; /* Optional: border for canvas */
-  background-color: #87ceeb; /* Optional: sky color */
+.game-canvas-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Ensure no scrollbars */
+}
+
+.start-screen {
+  position: absolute;
+  text-align: center;
+  color: white;
+  z-index: 1;
+  transform: translateY(-50%);
+  top: 50%;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+.start-screen h1 {
+  font-size: 60px;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.start-button {
+  padding: 15px 30px;
+  font-size: 20px;
+  color: white;
+  background-color: #ff6b6b;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.start-button:hover {
+  transform: scale(1.1);
+}
+
+.start-button:active {
+  transform: scale(1);
+}
+
+.game-canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Make sure it fits in the container */
+  max-width: 1024px;  /* Maximum width for the canvas */
+  max-height: 768px; /* Maximum height for the canvas */
+  border: 5px solid #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.pause-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 18px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pause-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
